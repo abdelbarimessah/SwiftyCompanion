@@ -82,6 +82,12 @@ const client = z.object({
   API_URL: z.string(),
   VAR_NUMBER: z.number(),
   VAR_BOOL: z.boolean(),
+
+  // Intra variables
+  INTRA_API_URL: z.string().min(1),
+  INTRA_CLIENT_ID: z.string().min(1),
+  INTRA_CLIENT_SECRET: z.string().min(1),
+  INTRA_REDIRECT_URI: z.string().min(1),
 });
 
 const buildTime = z.object({
@@ -106,6 +112,12 @@ const _clientEnv = {
   API_URL: process.env.API_URL,
   VAR_NUMBER: Number(process.env.VAR_NUMBER),
   VAR_BOOL: process.env.VAR_BOOL === 'true',
+
+  // Intra variables
+  INTRA_API_URL: process.env.INTRA_API_URL,
+  INTRA_CLIENT_ID: process.env.INTRA_CLIENT_ID,
+  INTRA_CLIENT_SECRET: process.env.INTRA_CLIENT_SECRET,
+  INTRA_REDIRECT_URI: process.env.INTRA_REDIRECT_URI,
 };
 
 /**
