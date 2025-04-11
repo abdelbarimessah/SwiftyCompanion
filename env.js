@@ -39,7 +39,7 @@ const PACKAGE = 'com.swiftycompanion'; // android package name
 const NAME = 'SwiftyCompanion'; // app name
 const EXPO_ACCOUNT_OWNER = 'enside'; // expo account owner
 const EAS_PROJECT_ID = '114b8f56-ae5b-4ea8-9561-247921a989fc'; // eas project id
-const SCHEME = 'SwiftyCompanion'; // app scheme
+const SCHEME = 'swiftycompanion'; // app scheme
 
 /**
  * We declare a function withEnvSuffix that will add a suffix to the variable name based on the APP_ENV
@@ -70,6 +70,8 @@ const withEnvSuffix = (name) => {
  *
  */
 
+// console.log('Loaded environment variables:', process.env);
+
 const client = z.object({
   APP_ENV: z.enum(['development', 'staging', 'production']),
   NAME: z.string(),
@@ -84,10 +86,10 @@ const client = z.object({
   VAR_BOOL: z.boolean(),
 
   // Intra variables
-  INTRA_API_URL: z.string().min(1),
-  INTRA_CLIENT_ID: z.string().min(1),
-  INTRA_CLIENT_SECRET: z.string().min(1),
-  INTRA_REDIRECT_URI: z.string().min(1),
+  // INTRA_API_URL: z.string().min(1),
+  // INTRA_CLIENT_ID: z.string().min(1),
+  // INTRA_CLIENT_SECRET: z.string().min(1),
+  // INTRA_REDIRECT_URI: z.string().min(1),
 });
 
 const buildTime = z.object({
@@ -114,10 +116,10 @@ const _clientEnv = {
   VAR_BOOL: process.env.VAR_BOOL === 'true',
 
   // Intra variables
-  INTRA_API_URL: process.env.INTRA_API_URL,
-  INTRA_CLIENT_ID: process.env.INTRA_CLIENT_ID,
-  INTRA_CLIENT_SECRET: process.env.INTRA_CLIENT_SECRET,
-  INTRA_REDIRECT_URI: process.env.INTRA_REDIRECT_URI,
+  // INTRA_API_URL: process.env.INTRA_API_URL,
+  // INTRA_CLIENT_ID: process.env.INTRA_CLIENT_ID,
+  // INTRA_CLIENT_SECRET: process.env.INTRA_CLIENT_SECRET,
+  // INTRA_REDIRECT_URI: process.env.INTRA_REDIRECT_URI,
 };
 
 /**
@@ -143,6 +145,8 @@ const _env = {
 
 const merged = buildTime.merge(client);
 const parsed = merged.safeParse(_env);
+
+// console.log('parsed :  ', merged);
 
 if (parsed.success === false) {
   console.error(

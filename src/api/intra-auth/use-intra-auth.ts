@@ -1,5 +1,4 @@
 import type { AxiosError } from 'axios';
-import { Env } from 'env';
 import { createMutation } from 'react-query-kit';
 
 import { intraClient } from '../common/intra-client';
@@ -9,17 +8,10 @@ import {
   type IntraUserResponse,
 } from './types';
 
-export const INTRA_CLIENT_ID = Env.INTRA_CLIENT_ID;
-export const INTRA_CLIENT_SECRET = Env.INTRA_CLIENT_SECRET;
-export const INTRA_REDIRECT_URI = Env.INTRA_REDIRECT_URI;
-
-// export const INTRA_CLIENT_ID =
-//   'u-s4t2ud-38667c824db9ed907490b4c69994a9ccb2f9a0d151da0a949822b31ea981e285';
-// export const INTRA_CLIENT_SECRET =
-//   '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';
-// export const INTRA_REDIRECT_URI = 'swiftycompanion://oauth';
-
-// console.log('the api variables : ', INTRA_REDIRECT_URI);
+export const INTRA_CLIENT_ID = process.env.EXPO_PUBLIC_INTRA_CLIENT_ID;
+export const INTRA_CLIENT_SECRET = process.env.EXPO_PUBLIC_INTRA_CLIENT_SECRET;
+export const INTRA_REDIRECT_URI = process.env.EXPO_PUBLIC_INTRA_REDIRECT_URI;
+export const INTRA_API_URL = process.env.EXPO_PUBLIC_INTRA_API_URL;
 
 export const useExchangeCodeForToken = createMutation<
   IntraTokenResponse,
@@ -35,7 +27,7 @@ export const useExchangeCodeForToken = createMutation<
         client_id: INTRA_CLIENT_ID,
         client_secret: INTRA_CLIENT_SECRET,
         code: variables.code,
-        redirect_uri: INTRA_REDIRECT_URI,
+        redirect_uri: 'swiftycompanion://oauth',
       },
     }).then((response) => response.data),
 });

@@ -20,7 +20,7 @@ export default function Login() {
 
   useEffect(() => {
     const handleDeepLink = ({ url }: { url: string }) => {
-      if (url.startsWith(INTRA_REDIRECT_URI)) {
+      if (url.startsWith(INTRA_REDIRECT_URI || '')) {
         const parsedUrl = new URL(url);
         const code = parsedUrl.searchParams.get('code');
         if (code) {
@@ -33,7 +33,7 @@ export default function Login() {
     Linking.addEventListener('url', handleDeepLink);
 
     Linking.getInitialURL().then((url) => {
-      if (url && url.startsWith(INTRA_REDIRECT_URI)) {
+      if (url && url.startsWith(INTRA_REDIRECT_URI || '')) {
         handleDeepLink({ url });
       }
     });

@@ -3,7 +3,6 @@ import { View } from 'react-native';
 import WebView from 'react-native-webview';
 
 import { INTRA_REDIRECT_URI } from '@/api/intra-auth';
-import { Button } from '@/components/ui';
 
 type IntraAuthWebViewProps = {
   authUrl: string;
@@ -13,7 +12,6 @@ type IntraAuthWebViewProps = {
 
 export function IntraAuthWebView({
   authUrl,
-  onClose,
   onCodeReceived,
 }: IntraAuthWebViewProps) {
   return (
@@ -21,7 +19,11 @@ export function IntraAuthWebView({
       <WebView
         source={{ uri: authUrl }}
         onNavigationStateChange={(navState) => {
-          if (navState.url.startsWith(INTRA_REDIRECT_URI)) {
+          if (
+            navState.url.startsWith(
+              INTRA_REDIRECT_URI || 'swiftycompanion://oauth'
+            )
+          ) {
             const url = new URL(navState.url);
             const code = url.searchParams.get('code');
             if (code) {
@@ -34,7 +36,6 @@ export function IntraAuthWebView({
         startInLoadingState={true}
         incognito={true}
       />
-      <Button label="Close" onPress={onClose} />
     </View>
   );
 }

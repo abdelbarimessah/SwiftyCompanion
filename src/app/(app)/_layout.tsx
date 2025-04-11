@@ -60,6 +60,15 @@ export default function TabLayout() {
           tabBarButtonTestID: 'settings-tab',
         }}
       />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'profile',
+          headerShown: false,
+          tabBarIcon: ({ color }) => <SettingsIcon color={color} />,
+          tabBarButtonTestID: 'profile-tab',
+        }}
+      />
     </Tabs>
   );
 }
