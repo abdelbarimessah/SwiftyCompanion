@@ -2,7 +2,6 @@ import { useRouter } from 'expo-router';
 import { useCallback } from 'react';
 
 import {
-  INTRA_API_URL,
   INTRA_CLIENT_ID,
   INTRA_REDIRECT_URI,
   useExchangeCodeForToken,
@@ -10,33 +9,25 @@ import {
 } from '@/api/intra-auth';
 import { showError } from '@/components/ui/utils';
 
+import { useUser } from '../store/user-store';
 import { useAuth } from './index';
 
 export function useIntraAuth() {
   const router = useRouter();
+  const { setUser } = useUser();
   const signIn = useAuth.use.signIn();
-
-  console.log('ENV VARS:', {
-    INTRA_CLIENT_ID,
-    INTRA_REDIRECT_URI,
-    INTRA_API_URL,
-  });
 
   const exchangeCodeMutation = useExchangeCodeForToken({
     onSuccess: async (data) => {
       try {
-        // Get user info with the token
         const userInfo = await getUserInfo(data.access_token);
-
-        // Store token and user info
-
-        console.log('the user info is : ', userInfo);
         signIn({
           access: data.access_token,
           refresh: data.refresh_token,
         });
+        setUser(userInfo);
+        // useUser.getState().setUser(userInfo);
 
-        // Navigate to home screen
         router.replace('/');
       } catch (error) {
         showError(error as any);

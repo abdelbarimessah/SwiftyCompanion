@@ -13,39 +13,36 @@ import { useIntraAuth } from '@/lib/auth/intra-auth';
 
 const { height, width } = Dimensions.get('window');
 
+const LoadingOverlay = () => (
+  <View className="absolute inset-0 z-10 flex items-center justify-center bg-black/50">
+    <ActivityIndicator size="small" />
+  </View>
+);
+
 export default function Login() {
   const [showWebview, setShowWebview] = useState(false);
-  const { getAuthUrl, exchangeCodeForToken, isLoading } = useIntraAuth();
   const [authUrl, setAuthUrl] = useState('');
+  const { getAuthUrl, exchangeCodeForToken, isLoading } = useIntraAuth();
 
   useEffect(() => {
     const handleDeepLink = ({ url }: { url: string }) => {
-      if (url.startsWith(INTRA_REDIRECT_URI || '')) {
-        const parsedUrl = new URL(url);
-        const code = parsedUrl.searchParams.get('code');
-        if (code) {
-          setShowWebview(false);
-          exchangeCodeForToken(code);
-        }
+      if (!url.startsWith(INTRA_REDIRECT_URI || '')) return;
+
+      const code = new URL(url).searchParams.get('code');
+      if (code) {
+        setShowWebview(false);
+        exchangeCodeForToken(code);
       }
     };
 
-    Linking.addEventListener('url', handleDeepLink);
+    const subscription = Linking.addEventListener('url', handleDeepLink);
+    Linking.getInitialURL().then((url) => url && handleDeepLink({ url }));
 
-    Linking.getInitialURL().then((url) => {
-      if (url && url.startsWith(INTRA_REDIRECT_URI || '')) {
-        handleDeepLink({ url });
-      }
-    });
-
-    return () => {
-      // Linking.removeEventListener('url', handleDeepLink);
-    };
+    return () => subscription.remove();
   }, [exchangeCodeForToken]);
 
   const handleLogin = () => {
-    const url = getAuthUrl();
-    setAuthUrl(url);
+    setAuthUrl(getAuthUrl());
     setShowWebview(true);
   };
 
@@ -60,23 +57,16 @@ export default function Login() {
       className="flex w-full items-center justify-center"
     >
       <FocusAwareStatusBar />
+      {isLoading && <LoadingOverlay />}
 
-      {isLoading && (
-        <View className="absolute inset-0 z-10 flex items-center justify-center bg-black/30">
-          <ActivityIndicator size="large" />
-        </View>
-      )}
-
-      {!showWebview ? (
-        <View className="items-center justify-center">
-          <Button label="Login with Intra" onPress={handleLogin} />
-        </View>
-      ) : (
+      {showWebview ? (
         <IntraAuthWebView
-          authUrl={authUrl}
+          {...{ authUrl }}
           onClose={() => setShowWebview(false)}
           onCodeReceived={handleCodeReceived}
         />
+      ) : (
+        <Button label="Login with Intra" onPress={handleLogin} />
       )}
     </SafeAreaView>
   );
