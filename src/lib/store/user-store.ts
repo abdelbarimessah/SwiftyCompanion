@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { type UserInfo } from '@/types/user-info';
+import { type User } from '@/types/user-info';
 
 import { storage } from '../storage';
 import { createSelectors } from '../utils';
@@ -8,8 +8,8 @@ import { createSelectors } from '../utils';
 const USER_INFO_KEY = 'user_info';
 
 interface UserState {
-  user: UserInfo | null;
-  setUser: (user: UserInfo | null) => void;
+  user: User | null;
+  setUser: (user: User | null) => void;
   hydrate: () => void;
 }
 
