@@ -4,13 +4,41 @@ import { useCallback } from 'react';
 import {
   INTRA_CLIENT_ID,
   INTRA_REDIRECT_URI,
+  type IntraUserResponse,
   useExchangeCodeForToken,
   useGetUserInfo,
 } from '@/api/intra-auth';
 import { showError } from '@/components/ui/utils';
+import { type User } from '@/types/user-info';
 
 import { useUser } from '../store/user-store';
 import { useAuth } from './index';
+
+const transformToUser = (apiUser: IntraUserResponse): User => {
+  return {
+    id: apiUser.id,
+    displayname: apiUser.displayname,
+    login: apiUser.login,
+    email: apiUser.email,
+    image: {
+      link: apiUser.image_url,
+      versions: {
+        large: apiUser.image_url,
+        medium: apiUser.image_url,
+        micro: apiUser.image_url,
+        small: apiUser.image_url,
+      },
+    },
+    level: 0,
+    wallet: 0,
+    correction_point: 0,
+    campus: [],
+    cursus_users: [],
+    achievements: [],
+    projects_users: [],
+    titles: [],
+  };
+};
 
 export function useIntraAuth() {
   const router = useRouter();
@@ -25,7 +53,9 @@ export function useIntraAuth() {
           access: data.access_token,
           refresh: data.refresh_token,
         });
-        setUser(userInfo);
+
+        const user = transformToUser(userInfo);
+        setUser(user);
         // useUser.getState().setUser(userInfo);
 
         router.replace('/');

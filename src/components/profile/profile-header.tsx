@@ -65,6 +65,8 @@ function GeneralInfo({
   location,
   country,
 }: GeneralInfoProps) {
+  console.log('avatarUrl', avatarUrl);
+
   return (
     <View className="border-1 w-full items-center rounded-s-lg border-x border-t border-[#f2f4f7] bg-white py-6">
       <View className="relative">
