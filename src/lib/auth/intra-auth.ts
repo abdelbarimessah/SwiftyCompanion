@@ -56,7 +56,6 @@ export function useIntraAuth() {
 
         const user = transformToUser(userInfo);
         setUser(user);
-        // useUser.getState().setUser(userInfo);
 
         router.replace('/');
       } catch (error) {

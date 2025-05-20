@@ -16,6 +16,13 @@ export type UserData = {
   }[];
   completedProjects: number;
   totalProjects: number;
+  projectsList: {
+    id: number;
+    name: string;
+    finalMark?: number;
+    updatedAt: string;
+    status: 'finished' | 'in_progress' | 'available';
+  }[];
 };
 
 export type User = {
@@ -49,6 +56,13 @@ export type User = {
   }[];
   projects_users: {
     'validated?': boolean;
+    status: string;
+    final_mark?: number;
+    updated_at: string;
+    project: {
+      id: number;
+      name: string;
+    };
   }[];
   titles: {
     name: string;

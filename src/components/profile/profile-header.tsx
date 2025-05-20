@@ -15,6 +15,7 @@ type Props = {
   wallet: number;
   correction: number;
   levelProgress: number;
+  currentLocation: string | null;
 };
 
 export function ProfileHeader({
@@ -28,6 +29,7 @@ export function ProfileHeader({
   wallet,
   correction,
   levelProgress,
+  currentLocation,
 }: Props) {
   return (
     <View className="items-center">
@@ -39,6 +41,7 @@ export function ProfileHeader({
         login={login}
         location={location}
         country={country}
+        currentLocation={currentLocation}
       />
       <Stats level={level} wallet={wallet} correction={correction} />
       <LevelProgress levelProgress={levelProgress} level={level} />
@@ -54,6 +57,7 @@ type GeneralInfoProps = {
   level: number;
   location: string;
   country: string;
+  currentLocation: string | null;
 };
 
 function GeneralInfo({
@@ -64,9 +68,8 @@ function GeneralInfo({
   level,
   location,
   country,
+  currentLocation,
 }: GeneralInfoProps) {
-  console.log('avatarUrl', avatarUrl);
-
   return (
     <View className="border-1 w-full items-center rounded-s-lg border-x border-t border-[#f2f4f7] bg-white py-6">
       <View className="relative">
@@ -86,7 +89,6 @@ function GeneralInfo({
       </Text>
       <View className="flex-row items-center gap-[3px]">
         <CircleUser size={14} color="#a8b1bd" strokeWidth={2.5} />
-        {/* <User size={16} color="#a8b1bd" strokeWidth={2.7} /> */}
         <Text className=" pb-px text-base font-bold tracking-wide text-[#a8b1bd]">
           {login}
         </Text>
@@ -100,6 +102,14 @@ function GeneralInfo({
         <Medal size={12} color="#000" strokeWidth={2.7} />
         <Text className="text-sm font-bold text-black dark:text-white">
           {title} {login}
+        </Text>
+      </View>
+      <View className="mt-1 flex-row items-center gap-1">
+        <View
+          className={`size-2 rounded-full ${currentLocation ? 'bg-green-500' : 'bg-red-500'}`}
+        />
+        <Text className="text-xs font-medium text-[#a8b1bd]">
+          {currentLocation ? `${currentLocation}` : 'Unavailable'}
         </Text>
       </View>
     </View>
@@ -138,7 +148,7 @@ function LevelProgress({
           style={{ width: `${Math.min(levelProgress * 100, 100)}%` }}
         />
       </View>
-      <View className="mt-1 flex-row justify-between">
+      <View className="mt-[6px] flex-row justify-between">
         <Text className="text-xs font-bold text-[#a8b1bd]">
           Level {Math.floor(level)}
         </Text>
