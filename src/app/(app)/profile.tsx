@@ -38,6 +38,7 @@ export default function Profile() {
                 correction={userData.correctionPoint}
                 levelProgress={userData.level % 1}
                 currentLocation={userData.location}
+                coalition={userData.coalitions[0]}
               />
 
               <ProfileTabs activeTab={activeTab} onTabChange={setActiveTab} />

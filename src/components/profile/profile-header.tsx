@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { CircleUser, Medal } from 'lucide-react-native';
+import { Medal } from 'lucide-react-native';
 import * as React from 'react';
 
 import { Text, View } from '@/components/ui';
@@ -16,6 +16,12 @@ type Props = {
   correction: number;
   levelProgress: number;
   currentLocation: string | null;
+  coalition: {
+    color: string;
+    cover_url: string;
+    image_url: string;
+    name: string;
+  } | null;
 };
 
 export function ProfileHeader({
@@ -30,6 +36,7 @@ export function ProfileHeader({
   correction,
   levelProgress,
   currentLocation,
+  coalition,
 }: Props) {
   return (
     <View className="items-center">
@@ -42,6 +49,7 @@ export function ProfileHeader({
         location={location}
         country={country}
         currentLocation={currentLocation}
+        coalition={coalition}
       />
       <Stats level={level} wallet={wallet} correction={correction} />
       <LevelProgress levelProgress={levelProgress} level={level} />
@@ -58,6 +66,12 @@ type GeneralInfoProps = {
   location: string;
   country: string;
   currentLocation: string | null;
+  coalition: {
+    color: string;
+    cover_url: string;
+    image_url: string;
+    name: string;
+  } | null;
 };
 
 function GeneralInfo({
@@ -69,9 +83,11 @@ function GeneralInfo({
   location,
   country,
   currentLocation,
+  coalition,
 }: GeneralInfoProps) {
+  console.log('coalition: ', coalition);
   return (
-    <View className="border-1 w-full items-center rounded-s-lg border-x border-t border-[#f2f4f7] bg-white py-6">
+    <View className="border-1 relative w-full items-center overflow-hidden rounded-s-lg border-x border-t border-[#f2f4f7] bg-white py-6">
       <View className="relative">
         <Image
           source={{ uri: avatarUrl }}
@@ -84,15 +100,87 @@ function GeneralInfo({
           </Text>
         </View>
       </View>
+      {coalition && <CoalitionBadge {...coalition} />}
+      <UserDetails
+        displayName={displayName}
+        login={login}
+        title={title}
+        location={location}
+        country={country}
+        currentLocation={currentLocation}
+      />
+    </View>
+  );
+}
+
+type CoalitionBadgeProps = {
+  color: string;
+  cover_url: string;
+  image_url: string;
+  name: string;
+};
+
+function CoalitionBadge({
+  color,
+  cover_url,
+  image_url,
+  name,
+}: CoalitionBadgeProps) {
+  console.log('coalition 1121212: ', cover_url);
+
+  return (
+    <View className="absolute top-0 -z-10 flex h-[100px] w-full items-start px-2">
+      <View className="flex-col items-center justify-center gap-1 ">
+        <View className="">
+          <View
+            className="h-[50px] w-[40px] items-center justify-end"
+            style={{ backgroundColor: color }}
+          >
+            <Image
+              source={{ uri: image_url }}
+              className="size-[40px]"
+              contentFit="contain"
+            />
+          </View>
+          <View
+            style={{
+              borderTopColor: color,
+              borderLeftColor: 'transparent',
+              borderRightColor: 'transparent',
+            }}
+            className="size-0 border-x-[20px] border-t-[20px]"
+          ></View>
+        </View>
+        <Text className="pl-1 text-xs font-bold" style={{ color: color }}>
+          {name}
+        </Text>
+      </View>
+    </View>
+  );
+}
+
+type UserDetailsProps = {
+  displayName: string;
+  login: string;
+  title: string;
+  location: string;
+  country: string;
+  currentLocation: string | null;
+};
+
+function UserDetails({
+  displayName,
+  login,
+  title,
+  location,
+  country,
+  currentLocation,
+}: UserDetailsProps) {
+  return (
+    <View className="flex items-center">
       <Text className="mt-4 text-2xl font-extrabold text-black dark:text-white">
         {displayName}
       </Text>
-      <View className="flex-row items-center gap-[3px]">
-        <CircleUser size={14} color="#a8b1bd" strokeWidth={2.5} />
-        <Text className=" pb-px text-base font-bold tracking-wide text-[#a8b1bd]">
-          {login}
-        </Text>
-      </View>
       <Text className="text-sm font-bold text-[#a8b1bd]">
         {location}
         {', '}
