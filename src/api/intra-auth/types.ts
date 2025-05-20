@@ -18,10 +18,41 @@ export type IntraUserResponse = {
   url: string;
   phone: string;
   displayname: string;
-  image_url: string;
-  // Add other fields as needed
+  image: {
+    link: string;
+    versions: {
+      large: string;
+      medium: string;
+      micro: string;
+      small: string;
+    };
+  };
+  wallet: number;
+  correction_point: number;
+  campus: any[];
+  cursus_users: any[];
+  achievements: any[];
+  projects_users: any[];
+  titles: any[];
+  // Add any other fields you need
 };
 
 export type ExchangeCodeVariables = {
   code: string;
+};
+
+export type Coalition = {
+  id: number;
+  name: string;
+  slug: string;
+  image_url: string;
+  cover_url: string;
+  color: string;
+  score: number;
+  user_id: number;
+};
+
+export type GetUserCoalitionsVariables = {
+  userId: number;
+  accessToken: string;
 };

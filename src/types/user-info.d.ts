@@ -67,4 +67,5 @@ export type User = {
   titles: {
     name: string;
   }[];
+  coalitions: Coalition[];
 };

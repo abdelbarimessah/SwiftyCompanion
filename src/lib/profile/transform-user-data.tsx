@@ -38,5 +38,6 @@ export function TransformUserData(user: any) {
     totalProjects: user.projects_users.length,
     projectsList,
     location: user.location || null,
+    coalitions: user.coalitions,
   };
 }

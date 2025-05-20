@@ -58,8 +58,10 @@ export function ProjectsOverview({
 
   return (
     <View className="mb-4 w-full rounded-lg border border-[#f2f4f7] bg-white p-4">
-      <ProgressSection progressPercentage={progressPercentage} />
-
+      <ProgressSection
+        progressPercentage={progressPercentage}
+        totalProjects={totalProjects}
+      />
       <ProjectListSection
         type="completed"
         icon={<CheckCircle size={20} color="#22c55e" />}
@@ -95,10 +97,14 @@ export function ProjectsOverview({
 }
 
 type ProgressSectionProps = {
+  totalProjects: number;
   progressPercentage: number;
 };
 
-function ProgressSection({ progressPercentage }: ProgressSectionProps) {
+function ProgressSection({
+  progressPercentage,
+  totalProjects,
+}: ProgressSectionProps) {
   return (
     <>
       <Text className="mb-1 text-sm font-bold text-black">
@@ -110,9 +116,14 @@ function ProgressSection({ progressPercentage }: ProgressSectionProps) {
           style={{ width: `${progressPercentage}%` }}
         />
       </View>
-      <Text className="mb-3 self-end text-xs font-bold text-[#a8b1bd]">
-        {progressPercentage}% complete
-      </Text>
+      <View className=" mb-3 flex-row justify-between">
+        <Text className="text-xs font-bold text-[#a8b1bd]">
+          {totalProjects} projects
+        </Text>
+        <Text className="text-xs font-bold text-[#a8b1bd]">
+          {progressPercentage}% complete
+        </Text>
+      </View>
     </>
   );
 }
