@@ -3,7 +3,9 @@ import { createMutation } from 'react-query-kit';
 
 import { intraClient } from '../common/intra-client';
 import {
+  type Coalition,
   type ExchangeCodeVariables,
+  type GetUserCoalitionsVariables,
   type IntraTokenResponse,
   type IntraUserResponse,
 } from './types';
@@ -40,6 +42,23 @@ export const useGetUserInfo = createMutation<
   mutationFn: async (variables) =>
     intraClient({
       url: '/v2/me',
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${variables.accessToken}`,
+      },
+    }).then((response) => {
+      return response.data;
+    }),
+});
+
+export const useGetUserCoalitions = createMutation<
+  Coalition[],
+  GetUserCoalitionsVariables,
+  AxiosError
+>({
+  mutationFn: async (variables) =>
+    intraClient({
+      url: `/v2/users/${variables.userId}/coalitions`,
       method: 'GET',
       headers: {
         Authorization: `Bearer ${variables.accessToken}`,

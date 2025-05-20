@@ -6,6 +6,7 @@ import {
   INTRA_REDIRECT_URI,
   type IntraUserResponse,
   useExchangeCodeForToken,
+  useGetUserCoalitions,
   useGetUserInfo,
 } from '@/api/intra-auth';
 import { showError } from '@/components/ui/utils';
@@ -21,22 +22,23 @@ const transformToUser = (apiUser: IntraUserResponse): User => {
     login: apiUser.login,
     email: apiUser.email,
     image: {
-      link: apiUser.image_url,
+      link: apiUser.image.link,
       versions: {
-        large: apiUser.image_url,
-        medium: apiUser.image_url,
-        micro: apiUser.image_url,
-        small: apiUser.image_url,
+        large: apiUser.image.versions.large,
+        medium: apiUser.image.versions.medium,
+        micro: apiUser.image.versions.micro,
+        small: apiUser.image.versions.small,
       },
     },
-    level: 0,
-    wallet: 0,
-    correction_point: 0,
-    campus: [],
-    cursus_users: [],
-    achievements: [],
-    projects_users: [],
-    titles: [],
+    level: apiUser.cursus_users?.[1]?.level || 0,
+    wallet: apiUser.wallet || 0,
+    correction_point: apiUser.correction_point || 0,
+    campus: apiUser.campus || [],
+    cursus_users: apiUser.cursus_users || [],
+    achievements: apiUser.achievements || [],
+    projects_users: apiUser.projects_users || [],
+    titles: apiUser.titles || [],
+    coalitions: [],
   };
 };
 
@@ -55,9 +57,9 @@ export function useIntraAuth() {
         });
 
         const user = transformToUser(userInfo);
+        const coalitions = await getUserCoalitions(user.id, data.access_token);
+        user.coalitions = coalitions;
         setUser(user);
-        // useUser.getState().setUser(userInfo);
-
         router.replace('/');
       } catch (error) {
         showError(error as any);
@@ -77,7 +79,18 @@ export function useIntraAuth() {
     },
     [userInfoMutation]
   );
+  const userCoalitionsMutation = useGetUserCoalitions();
 
+  const getUserCoalitions = useCallback(
+    async (userId: number, accessToken: string) => {
+      const result = await userCoalitionsMutation.mutateAsync({
+        userId,
+        accessToken,
+      });
+      return result;
+    },
+    [userCoalitionsMutation]
+  );
   const exchangeCodeForToken = useCallback(
     (code: string) => {
       exchangeCodeMutation.mutate({ code });
