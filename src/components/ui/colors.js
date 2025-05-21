@@ -2,11 +2,12 @@ module.exports = {
   white: '#ffffff',
   black: '#000000',
   main: {
-    50: '#54CAFA',
+    50: '#f5f8fb',
   },
   second: {
     50: '#1C0311',
   },
+
   charcoal: {
     50: '#F2F2F2',
     100: '#E5E5E5',
