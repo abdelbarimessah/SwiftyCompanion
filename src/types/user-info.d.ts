@@ -23,6 +23,11 @@ export type UserData = {
     updatedAt: string;
     status: 'finished' | 'in_progress' | 'available';
   }[];
+  skills: {
+    id: number;
+    name: string;
+    level: number;
+  }[];
 };
 
 export type User = {
@@ -68,4 +73,9 @@ export type User = {
     name: string;
   }[];
   coalitions: Coalition[];
+  skills: {
+    id: number;
+    name: string;
+    level: number;
+  }[];
 };
