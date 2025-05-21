@@ -13,7 +13,6 @@ export function TransformUserData(user: any) {
         : 'available',
   }));
 
-  // Extract skills from main cursus (cursus_id: 21)
   const mainCursus = user.cursus_users.find(
     (cursus: any) => cursus.cursus_id === 21
   );
@@ -46,5 +45,6 @@ export function TransformUserData(user: any) {
     location: user.location || null,
     coalitions: user.coalitions,
     skills: skills,
+    campus_id: user.campus_id,
   };
 }

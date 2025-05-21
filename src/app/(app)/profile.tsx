@@ -13,12 +13,13 @@ type Tab = 'achievements' | 'projects' | 'skills';
 
 export default function Profile() {
   const { user, hydrate } = useUser();
-  const [activeTab, setActiveTab] = useState<Tab>('achievements');
+  const [activeTab, setActiveTab] = useState<Tab>('skills');
 
   useEffect(() => {
     hydrate();
   }, [hydrate]);
   const userData = TransformUserData(user);
+
   return (
     <>
       <FocusAwareStatusBar />

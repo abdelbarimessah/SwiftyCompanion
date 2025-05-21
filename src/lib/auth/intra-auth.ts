@@ -40,6 +40,7 @@ const transformToUser = (apiUser: IntraUserResponse): User => {
     titles: apiUser.titles || [],
     coalitions: [],
     skills: apiUser.skills || [],
+    campus_id: apiUser.campus[0]?.id || 0,
   };
 };
 
@@ -56,8 +57,6 @@ export function useIntraAuth() {
           access: data.access_token,
           refresh: data.refresh_token,
         });
-
-        console.log('the user info before the transform is : ', userInfo);
 
         const user = transformToUser(userInfo);
         const coalitions = await getUserCoalitions(user.id, data.access_token);
