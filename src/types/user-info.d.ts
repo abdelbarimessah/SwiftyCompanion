@@ -78,4 +78,5 @@ export type User = {
     name: string;
     level: number;
   }[];
+  campus_id: number;
 };
