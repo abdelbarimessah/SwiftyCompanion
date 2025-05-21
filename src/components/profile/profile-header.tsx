@@ -85,7 +85,7 @@ function GeneralInfo({
   currentLocation,
   coalition,
 }: GeneralInfoProps) {
-  console.log('coalition: ', coalition);
+  console.log('coalition: ', currentLocation);
   return (
     <View className="border-1 relative w-full items-center overflow-hidden rounded-s-lg border-x border-t border-[#f2f4f7] bg-white py-6">
       <View className="relative">
