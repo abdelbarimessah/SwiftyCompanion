@@ -129,11 +129,18 @@ function CoalitionBadge({
   console.log('coalition 1121212: ', cover_url);
 
   return (
-    <View className="absolute top-0 -z-10 flex h-[100px] w-full items-start px-2">
-      <View className="flex-col items-center justify-center gap-1 ">
+    <View className="absolute top-0 -z-10 flex h-[100px] w-full items-start ">
+      <View className="absolute top-0 -z-10 flex h-[100px] w-full">
+        <Image
+          source={{ uri: cover_url }}
+          className="size-full"
+          contentFit="cover"
+        />
+      </View>
+      <View className="flex-col items-center justify-center gap-1 px-2">
         <View className="">
           <View
-            className="h-[50px] w-[40px] items-center justify-end"
+            className="h-[110px] w-[40px] items-center justify-center pt-[30px]"
             style={{ backgroundColor: color }}
           >
             <Image

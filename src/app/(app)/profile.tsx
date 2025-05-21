@@ -19,6 +19,9 @@ export default function Profile() {
   }, [hydrate]);
 
   const userData = TransformUserData(user);
+
+  console.log('the acheivement is : ', userData?.achievements);
+
   return (
     <>
       <FocusAwareStatusBar />
