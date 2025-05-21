@@ -5,23 +5,20 @@ import { AchievementsOverview } from '@/components/profile/achievements-overview
 import { ProfileHeader } from '@/components/profile/profile-header';
 import { ProfileTabs } from '@/components/profile/profile-tabs';
 import { ProjectsOverview } from '@/components/profile/projects-overview';
+import { SkillsOverview } from '@/components/profile/skills-overview';
 import { FocusAwareStatusBar, SafeAreaView, ScrollView } from '@/components/ui';
 import { TransformUserData } from '@/lib/profile/transform-user-data';
 import { useUser } from '@/lib/store/user-store';
-type Tab = 'achievements' | 'projects';
+type Tab = 'achievements' | 'projects' | 'skills';
 
 export default function Profile() {
   const { user, hydrate } = useUser();
-  const [activeTab, setActiveTab] = useState<Tab>('projects');
+  const [activeTab, setActiveTab] = useState<Tab>('achievements');
 
   useEffect(() => {
     hydrate();
   }, [hydrate]);
-
   const userData = TransformUserData(user);
-
-  console.log('the acheivement is : ', userData?.achievements);
-
   return (
     <>
       <FocusAwareStatusBar />
@@ -57,6 +54,10 @@ export default function Profile() {
 
               {activeTab === 'achievements' && (
                 <AchievementsOverview achievements={userData.achievements} />
+              )}
+
+              {activeTab === 'skills' && (
+                <SkillsOverview skills={userData.skills} />
               )}
             </>
           )}

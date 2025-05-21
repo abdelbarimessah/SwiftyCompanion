@@ -34,6 +34,7 @@ export type IntraUserResponse = {
   achievements: any[];
   projects_users: any[];
   titles: any[];
+  skills: any[];
 };
 
 export type ExchangeCodeVariables = {
