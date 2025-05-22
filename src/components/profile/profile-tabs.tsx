@@ -9,7 +9,7 @@ import Animated, {
 import { Pressable, View } from '@/components/ui';
 import colors from '@/components/ui/colors';
 
-type Tab = 'achievements' | 'projects';
+type Tab = 'achievements' | 'projects' | 'skills';
 
 type Props = {
   activeTab: Tab;
@@ -17,10 +17,16 @@ type Props = {
 };
 
 export function ProfileTabs({ activeTab, onTabChange }: Props) {
-  const tabWidth = Dimensions.get('window').width / 2 - 15;
+  const tabWidth = Dimensions.get('window').width / 3 - 10;
 
   const indicatorStyle = useAnimatedStyle(() => {
-    const translateX = activeTab === 'achievements' ? 0 : tabWidth;
+    let translateX = 0;
+
+    if (activeTab === 'projects') {
+      translateX = tabWidth;
+    } else if (activeTab === 'skills') {
+      translateX = tabWidth * 2;
+    }
 
     return {
       transform: [
@@ -52,6 +58,11 @@ export function ProfileTabs({ activeTab, onTabChange }: Props) {
           label="Projects"
           isActive={activeTab === 'projects'}
           onPress={() => onTabChange('projects')}
+        />
+        <TabButton
+          label="Skills"
+          isActive={activeTab === 'skills'}
+          onPress={() => onTabChange('skills')}
         />
       </View>
       <Animated.View style={indicatorStyle} />

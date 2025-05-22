@@ -11,6 +11,7 @@ export type IntraUserResponse = {
   id: number;
   email: string;
   login: string;
+  campus_id: number;
   first_name: string;
   last_name: string;
   usual_full_name: string;
@@ -34,6 +35,7 @@ export type IntraUserResponse = {
   achievements: any[];
   projects_users: any[];
   titles: any[];
+  skills: any[];
 };
 
 export type ExchangeCodeVariables = {

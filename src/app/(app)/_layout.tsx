@@ -7,6 +7,7 @@ import {
   Feed as FeedIcon,
   Settings as SettingsIcon,
   Style as StyleIcon,
+  User as UserIcon,
 } from '@/components/ui/icons';
 import { useAuth, useIsFirstTime } from '@/lib';
 
@@ -23,7 +24,6 @@ export default function TabLayout() {
       }, 1000);
     }
   }, [hideSplash, status]);
-
   if (isFirstTime) {
     return <Redirect href="/onboarding" />;
   }
@@ -31,7 +31,14 @@ export default function TabLayout() {
     return <Redirect href="/login" />;
   }
   return (
-    <Tabs>
+    <Tabs
+      screenOptions={{
+        tabBarStyle: {
+          height: 55,
+        },
+        tabBarActiveTintColor: '#000000',
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
@@ -41,7 +48,6 @@ export default function TabLayout() {
           tabBarButtonTestID: 'feed-tab',
         }}
       />
-
       <Tabs.Screen
         name="style"
         options={{
@@ -65,7 +71,7 @@ export default function TabLayout() {
         options={{
           title: 'profile',
           headerShown: false,
-          tabBarIcon: ({ color }) => <SettingsIcon color={color} />,
+          tabBarIcon: ({ color }) => <UserIcon color={color} />,
           tabBarButtonTestID: 'profile-tab',
         }}
       />

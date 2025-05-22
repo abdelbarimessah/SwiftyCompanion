@@ -39,6 +39,8 @@ const transformToUser = (apiUser: IntraUserResponse): User => {
     projects_users: apiUser.projects_users || [],
     titles: apiUser.titles || [],
     coalitions: [],
+    skills: apiUser.skills || [],
+    campus_id: apiUser.campus[0]?.id || 0,
   };
 };
 
