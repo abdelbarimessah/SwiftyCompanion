@@ -1,0 +1,9 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+- I each function should be under 70 lines not more.
+- I want you to create new component with kabab-case (new-component.tsx for example)
+- I want you when you want to run the project to run it with pnpm npt npx 
+- Also when you try to install a package i want you to install it with pnpm
