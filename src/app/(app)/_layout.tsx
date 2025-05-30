@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unstable-nested-components */
 import { Redirect, SplashScreen, Tabs } from 'expo-router';
-import { ListOrdered, Map, Settings, User } from 'lucide-react-native';
+import { ChartNoAxesColumn, Map, Settings, User } from 'lucide-react-native';
 import React, { useCallback, useEffect } from 'react';
 
 import { useAuth, useIsFirstTime } from '@/lib';
@@ -38,7 +38,7 @@ export default function TabLayout() {
         options={{
           title: 'Ranking',
           headerShown: false,
-          tabBarIcon: ({ color }) => <ListOrdered color={color} />,
+          tabBarIcon: ({ color }) => <ChartNoAxesColumn color={color} />,
           tabBarButtonTestID: 'ranking-tab',
         }}
       />
