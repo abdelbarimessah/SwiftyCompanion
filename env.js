@@ -70,8 +70,6 @@ const withEnvSuffix = (name) => {
  *
  */
 
-// console.log('Loaded environment variables:', process.env);
-
 const client = z.object({
   APP_ENV: z.enum(['development', 'staging', 'production']),
   NAME: z.string(),
@@ -145,8 +143,6 @@ const _env = {
 
 const merged = buildTime.merge(client);
 const parsed = merged.safeParse(_env);
-
-// console.log('parsed :  ', merged);
 
 if (parsed.success === false) {
   console.error(

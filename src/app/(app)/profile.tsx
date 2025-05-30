@@ -7,6 +7,7 @@ import { ProfileTabs } from '@/components/profile/profile-tabs';
 import { ProjectsOverview } from '@/components/profile/projects-overview';
 import { SkillsOverview } from '@/components/profile/skills-overview';
 import { FocusAwareStatusBar, SafeAreaView, ScrollView } from '@/components/ui';
+import { useAuth } from '@/lib/auth';
 import { TransformUserData } from '@/lib/profile/transform-user-data';
 import { useUser } from '@/lib/store/user-store';
 type Tab = 'achievements' | 'projects' | 'skills';
@@ -19,6 +20,12 @@ export default function Profile() {
     hydrate();
   }, [hydrate]);
   const userData = TransformUserData(user);
+
+  console.log('userData', userData);
+
+  const token = useAuth.use.token();
+
+  console.log('token', token);
 
   return (
     <>
