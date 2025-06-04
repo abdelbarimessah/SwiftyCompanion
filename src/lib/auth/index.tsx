@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 
+import { storage } from '../storage';
 import { createSelectors } from '../utils';
 import type { TokenType } from './utils';
 import { getToken, removeToken, setToken } from './utils';
@@ -22,6 +23,7 @@ const _useAuth = create<AuthState>((set, get) => ({
   signOut: () => {
     removeToken();
     set({ status: 'signOut', token: null });
+    storage.set('IS_FIRST_TIME', true);
   },
   hydrate: () => {
     try {
