@@ -85,7 +85,6 @@ export default function Onboarding() {
     router.replace('/login');
   };
 
-  // Screen content based on current step
   const screenContent = {
     1: {
       image: require('../../assets/images/onboarding/onboarding-image-1.png'),
