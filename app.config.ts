@@ -4,7 +4,7 @@ import type { AppIconBadgeConfig } from 'app-icon-badge/types';
 import { ClientEnv, Env } from './env';
 
 const appIconBadgeConfig: AppIconBadgeConfig = {
-  enabled: Env.APP_ENV !== 'production',
+  enabled: false,
   badges: [
     {
       text: Env.APP_ENV,
@@ -28,7 +28,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   slug: 'swiftycompanion',
   version: Env.VERSION.toString(),
   orientation: 'portrait',
-  icon: './assets/icon.png',
+  icon: './assets/icons/ios-dark.png',
   userInterfaceStyle: 'automatic',
   newArchEnabled: true,
   updates: {
@@ -41,14 +41,19 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     config: {
       usesNonExemptEncryption: false,
     },
+    icon: {
+      dark: './assets/icons/ios-dark.png',
+      light: './assets/icons/ios-light.png',
+      tinted: './assets/icons/ios-tinted.png',
+    },
   },
   experiments: {
     typedRoutes: true,
   },
   android: {
     adaptiveIcon: {
-      foregroundImage: './assets/adaptive-icon.png',
-      backgroundColor: '#2E3C4B',
+      foregroundImage: './assets/icons/adaptive-icon.png',
+      backgroundColor: '#ffffff',
     },
     package: Env.PACKAGE,
   },
@@ -60,9 +65,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       'expo-splash-screen',
       {
-        backgroundColor: '#2E3C4B',
-        image: './assets/splash-icon.png',
-        imageWidth: 150,
+        backgroundColor: '#ffffff',
+        image: './assets/icons/splash-icon-dark.png',
+        resizeMode: 'contain',
+        imageWidth: 200,
       },
     ],
     [
