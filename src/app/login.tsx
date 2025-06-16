@@ -34,23 +34,21 @@ function LoginContent({ onLogin }: { onLogin: () => void }) {
   };
 
   return (
-    <SafeAreaView className="flex-1 items-center justify-between px-8 py-10">
-      <View />
-
-      <View className="items-center">
+    <SafeAreaView className="flex-1 items-start justify-between px-8 pt-20">
+      <View className="items-center gap-6">
         <Image
           source={require('../../assets/logo.png')}
-          style={{ width: 280, height: 120 }}
+          style={{ width: 280, height: 70 }}
           className="rounded-3xl"
         />
-        <Text className="mb-6 text-center text-sm leading-6 text-gray-600">
-          Access your Intra profile, track your progress, and connect with the
-          42 community
-        </Text>
-
-        <View className="mb-10 h-px w-20 bg-gray-300" />
+        <View className="w-full px-3">
+          <Text className="px-2 text-center text-sm leading-6 text-black">
+            Access your Intra profile, track your progress, and connect with the
+            42 community
+          </Text>
+        </View>
+        <View className="mb-10 h-px w-[140px] bg-gray-300" />
       </View>
-
       <View className="w-full">
         <Button
           label="Sign in with Intra"
@@ -58,7 +56,6 @@ function LoginContent({ onLogin }: { onLogin: () => void }) {
           size="lg"
           className="mb-5 bg-blue-500 shadow-lg"
         />
-
         <View className="flex-row items-center justify-center">
           <View className="h-px w-16 bg-gray-300" />
           <Text className="mx-3 text-xs text-gray-500">SECURE LOGIN</Text>

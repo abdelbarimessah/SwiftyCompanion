@@ -46,7 +46,7 @@ function OnboardingScreen({
         </View>
 
         <Pressable className="mt-10 items-center" onPress={onNext}>
-          <View className="rounded-full bg-black px-16 py-2">
+          <View className="rounded-lg bg-black px-16 py-2">
             <Text className="text-2xl font-medium text-white">Next</Text>
           </View>
         </Pressable>
@@ -74,7 +74,6 @@ export default function Onboarding() {
     if (currentStep < 3) {
       setCurrentStep(currentStep + 1);
     } else {
-      // Last screen, proceed to login
       setIsFirstTime(false);
       router.replace('/login');
     }
