@@ -1,14 +1,8 @@
 /* eslint-disable react/no-unstable-nested-components */
-import { Link, Redirect, SplashScreen, Tabs } from 'expo-router';
+import { Redirect, SplashScreen, Tabs } from 'expo-router';
+import { ChartNoAxesColumn, Map, Settings, User } from 'lucide-react-native';
 import React, { useCallback, useEffect } from 'react';
 
-import { Pressable, Text } from '@/components/ui';
-import {
-  Feed as FeedIcon,
-  Settings as SettingsIcon,
-  Style as StyleIcon,
-  User as UserIcon,
-} from '@/components/ui/icons';
 import { useAuth, useIsFirstTime } from '@/lib';
 
 export default function TabLayout() {
@@ -42,19 +36,19 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Feed',
-          tabBarIcon: ({ color }) => <FeedIcon color={color} />,
-          headerRight: () => <CreateNewPostLink />,
-          tabBarButtonTestID: 'feed-tab',
+          title: 'Ranking',
+          headerShown: false,
+          tabBarIcon: ({ color }) => <ChartNoAxesColumn color={color} />,
+          tabBarButtonTestID: 'ranking-tab',
         }}
       />
       <Tabs.Screen
-        name="style"
+        name="clusters"
         options={{
-          title: 'Style',
+          title: 'Clusters',
           headerShown: false,
-          tabBarIcon: ({ color }) => <StyleIcon color={color} />,
-          tabBarButtonTestID: 'style-tab',
+          tabBarIcon: ({ color }) => <Map color={color} />,
+          tabBarButtonTestID: 'clusters-tab',
         }}
       />
       <Tabs.Screen
@@ -62,7 +56,7 @@ export default function TabLayout() {
         options={{
           title: 'Settings',
           headerShown: false,
-          tabBarIcon: ({ color }) => <SettingsIcon color={color} />,
+          tabBarIcon: ({ color }) => <Settings color={color} />,
           tabBarButtonTestID: 'settings-tab',
         }}
       />
@@ -71,20 +65,10 @@ export default function TabLayout() {
         options={{
           title: 'profile',
           headerShown: false,
-          tabBarIcon: ({ color }) => <UserIcon color={color} />,
+          tabBarIcon: ({ color }) => <User color={color} />,
           tabBarButtonTestID: 'profile-tab',
         }}
       />
     </Tabs>
   );
 }
-
-const CreateNewPostLink = () => {
-  return (
-    <Link href="/feed/add-post" asChild>
-      <Pressable>
-        <Text className="px-3 text-primary-300">Create</Text>
-      </Pressable>
-    </Link>
-  );
-};

@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { Medal } from 'lucide-react-native';
+import { Award } from 'lucide-react-native';
 import * as React from 'react';
 
 import { Text, View } from '@/components/ui';
@@ -85,7 +85,6 @@ function GeneralInfo({
   currentLocation,
   coalition,
 }: GeneralInfoProps) {
-  console.log('coalition: ', currentLocation);
   return (
     <View className="border-1 relative w-full items-center overflow-hidden rounded-s-lg border-x border-t border-[#f2f4f7] bg-white py-6">
       <View className="relative">
@@ -126,8 +125,6 @@ function CoalitionBadge({
   image_url,
   name,
 }: CoalitionBadgeProps) {
-  console.log('coalition 1121212: ', cover_url);
-
   return (
     <View className="absolute top-0 -z-10 flex h-[100px] w-full items-start ">
       <View className="absolute top-0 -z-10 flex h-[100px] w-full">
@@ -194,7 +191,7 @@ function UserDetails({
         {country}
       </Text>
       <View className="mt-2 flex-row items-center gap-1 rounded-full bg-neutral-100 px-3 py-1 dark:bg-neutral-800">
-        <Medal size={12} color="#000" strokeWidth={2.7} />
+        <Award size={14} color="#000" strokeWidth={2.7} />
         <Text className="text-sm font-bold text-black dark:text-white">
           {title} {login}
         </Text>
